@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import './App.css';
 import InfoSection from './InfoSection';
+import Loader from './Loader';
 
 function App() {
 
   const [value, setvalue] = useState({
     ytid: '',
     ytvideodata: '',
+    issearching: false,
+    isdownloading: false,
   });
   
   const inputchenge = (e) =>{
@@ -14,40 +17,57 @@ function App() {
   }
 
   const getytvideo = async (e) =>{
-    e.preventDefault()
-    // setvalue({...value, ytid: ''})
-    setvalue({...value, ytlink: ''})
+    e.preventDefault();
+    setvalue({...value, ytlink: '', issearching: true, ytvideodata: ''})
     fetch(`https://dountubeapi.herokuapp.com/getytvideo/${(value.ytid).split('v=')[1]}`)
     .then(res=> res.json())
-    .then(data => setvalue({...value, ytvideodata: data}))
-    .catch(err => console.log(err))
+    .then(data => setvalue({...value, ytvideodata: data, issearching: false}))
+    .catch(err => {
+      console.log(err);
+      setvalue({...value, issearching: false})
+    })
   }
 
   const download = async (e) =>{
     e.preventDefault()
-    // setvalue({...value, ytid: ''})
+    setvalue({...value, isdownloading: true})
     fetch(`https://dountubeapi.herokuapp.com/download/${(value.ytid).split('v=')[1]}/${value.ytvideodata.formate}`)
     // .then(res=> res.json())
-    .then(data => window.location = data.url)
-    .catch(err => console.log(err))
+    .then(data => {
+      window.location = data.url
+      setvalue({...value, isdownloading: false})
+    })
+    .catch(err => {
+      console.log(err)
+      setvalue({...value, isdownloading: false})
+    })
   }
 
   return (
-    <div className="ytdl">
-      <form className="ytlinkinputwraper">
-        <input className="ytlinkinput" onChange={inputchenge} value={value.ytid} type="text" name="ytid" placeholder="Enter Youtube Video Link"/>
-        {console.log(value.ytvideodata.Videolink)}
-        <button className="ytlinkinputbtn" onClick={getytvideo}>Search</button>
-      </form>
-      {
-      value.ytvideodata 
-      && 
-      <>
-        <InfoSection title={value.ytvideodata.title} thumbnail={value.ytvideodata.thumbnail} Videolink={value.ytvideodata.Videolink}/>
-        <button className="download-btn" onClick={download}>Download</button>
-      </>
-      }
-    </div>
+    <>
+      <header>
+        <h1>DownTube</h1>
+      </header>
+      <div className="ytdl">
+        <form className="ytlinkinputwraper">
+          <input className="ytlinkinput" onChange={inputchenge} value={value.ytid} type="text" name="ytid" placeholder="Enter Youtube Video Link"/>
+          <button className="ytlinkinputbtn" onClick={getytvideo}>{value.issearching ? 'Searching..' : 'Search'}</button>
+        </form>
+        {
+        value.ytvideodata 
+        && 
+        <>
+          <InfoSection title={value.ytvideodata.title} thumbnail={value.ytvideodata.thumbnail} Videolink={value.ytvideodata.Videolink}/>
+          <button className="download-btn" onClick={download}>{value.isdownloading ? 'Preparing..' : 'Download'}{value.isdownloading&&<Loader size="mini"/>}</button>
+        </> 
+        }
+        {
+        value.issearching 
+        && 
+        <Loader size="mega"/>
+        }
+      </div>
+    </>
   );
 }
 
