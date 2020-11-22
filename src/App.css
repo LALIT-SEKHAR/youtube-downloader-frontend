@@ -51,6 +51,10 @@ header{
   background-color: red;
   border: none;
   border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 .InfoSection{
   width: 80%;
