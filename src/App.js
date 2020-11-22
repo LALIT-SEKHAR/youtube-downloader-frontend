@@ -16,10 +16,18 @@ function App() {
     setvalue({...value, [e.target.name]:e.target.value})
   }
 
+  const ExtractYTID = (link) => {
+    if (link.search("v=") !== -1) {
+      return link.split('v=')[1];
+    } else if (link.search("youtu.be" !== -1)) {
+      return link.split('/')[link.split('/').length - 1]
+    }
+  }
+
   const getytvideo = async (e) =>{
     e.preventDefault();
     setvalue({...value, ytlink: '', issearching: true, ytvideodata: ''})
-    fetch(`https://dountubeapi.herokuapp.com/getytvideo/${(value.ytid).split('v=')[1]}`)
+    fetch(`http://192.168.43.54:7000/getytvideo/${ExtractYTID(value.ytid)}`)
     .then(res=> res.json())
     .then(data => setvalue({...value, ytvideodata: data, issearching: false}))
     .catch(err => {
@@ -31,7 +39,7 @@ function App() {
   const download = async (e) =>{
     e.preventDefault()
     setvalue({...value, isdownloading: true})
-    fetch(`https://dountubeapi.herokuapp.com/download/${(value.ytid).split('v=')[1]}/${value.ytvideodata.formate}`)
+    fetch(`https://dountubeapi.herokuapp.com/download/${ExtractYTID(value.ytid)}/${value.ytvideodata.formate}`)
     // .then(res=> res.json())
     .then(data => {
       window.location = data.url
