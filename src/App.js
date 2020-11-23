@@ -28,7 +28,7 @@ function App() {
   const getytvideo = async (e) =>{
     e.preventDefault();
     setvalue({...value, ytlink: '', issearching: true, ytvideodata: ''})
-    fetch(`http://localhost:7000/getytvideo/${ExtractYTID(value.ytid)}`)
+    fetch(`https://dountubeapi.herokuapp.com/getytvideo/${ExtractYTID(value.ytid)}`)
     .then(res=> res.json())
     .then(data => {
       setvalue({...value, ytvideodata: data, issearching: false})
@@ -43,7 +43,7 @@ function App() {
   const download = async (e) =>{
     e.preventDefault()
     setvalue({...value, isdownloading: true})
-    fetch(`http://localhost:7000/download/${ExtractYTID(value.ytid)}/highestaudio/mp3`)
+    fetch(`https://dountubeapi.herokuapp.com/download/${ExtractYTID(value.ytid)}/highestaudio/mp3`)
     // .then(res=> res.json())
     .then(data => {
       window.location = data.url
