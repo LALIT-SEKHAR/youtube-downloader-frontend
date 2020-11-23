@@ -27,7 +27,7 @@ function App() {
   const getytvideo = async (e) =>{
     e.preventDefault();
     setvalue({...value, ytlink: '', issearching: true, ytvideodata: ''})
-    fetch(`http://192.168.43.54:7000/getytvideo/${ExtractYTID(value.ytid)}`)
+    fetch(`https://dountubeapi.herokuapp.com/getytvideo/${ExtractYTID(value.ytid)}`)
     .then(res=> res.json())
     .then(data => setvalue({...value, ytvideodata: data, issearching: false}))
     .catch(err => {
