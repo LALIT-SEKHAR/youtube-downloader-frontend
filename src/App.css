@@ -10,13 +10,15 @@ header{
 }
 .ytdl {
   text-align: center;
-  height: 90vh;
+  min-height: 90vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
   background: linear-gradient(135deg, rgb(150, 150, 255), rgb(255, 150, 150));
+  padding-top: 5em;
+  gap: 1em;
 }
 .ytlinkinputwraper{
   width: 80%;
@@ -45,16 +47,72 @@ header{
   font-size: 1.25em;
   color: rgb(222, 222, 222);
 }
+.video-audio-wraper{
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  background-color: rgb(0, 0, 0, 0.1);
+  border-radius: 10px;
+  color: white;
+  margin: 1em;
+}
+.video-section,
+.audio-section{
+  height: 2.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-radius: 10px;
+}
+.video-section{
+  background-color: red
+}
+.audio-section{}
+.download-btn-wraper{
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  /* overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth; */
+}
+.DownloadSection{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0.5em;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+}
+.download-data{
+  /* padding: 1em 1.5em; */
+  color: white;
+  border: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  /* margin: 0.5em; */
+  width: 100%;
+  background-color: transparent;
+}
 .download-btn{
   padding: 1em 1.5em;
   color: white;
-  background-color: red;
+  background-color: rgb(255, 0, 0);
   border: none;
   border-radius: 20px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
+  gap: 1em;
+  /* margin: 0.5em; */
 }
 .InfoSection{
   width: 80%;
@@ -76,8 +134,8 @@ header{
   animation: rotate infinite cubic-bezier(.18,.59,.88,.34) 800ms;
 }
 .circle-loader-mini{
-  height: 2.5em;
-  width: 2.5em;
+  height: 1em;
+  width: 1em;
   border-radius: 50%;
   border: 0.25em solid rgb(255, 255, 255);
   border-left-color: transparent;
@@ -111,5 +169,21 @@ header{
   }
   .title{
     font-size: 1em;
+  }
+  .download-btn-wraper{
+    width: 95%;
+  }
+  .DownloadSection{
+    margin: 0.5em;
+    border-radius: 20px;
+    font-size: 0.8em;
+  }
+  .download-data{
+    width: 100%;
+  }
+  .download-btn{
+    padding: 0.8em 1.5em;
+    border-radius: 20px;
+    gap: 1em;
   }
 }

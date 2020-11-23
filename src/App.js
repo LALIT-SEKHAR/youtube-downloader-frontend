@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import DownloadSection from './DownloadSection';
 import InfoSection from './InfoSection';
 import Loader from './Loader';
 
@@ -27,9 +28,12 @@ function App() {
   const getytvideo = async (e) =>{
     e.preventDefault();
     setvalue({...value, ytlink: '', issearching: true, ytvideodata: ''})
-    fetch(`https://dountubeapi.herokuapp.com/getytvideo/${ExtractYTID(value.ytid)}`)
+    fetch(`http://localhost:7000/getytvideo/${ExtractYTID(value.ytid)}`)
     .then(res=> res.json())
-    .then(data => setvalue({...value, ytvideodata: data, issearching: false}))
+    .then(data => {
+      setvalue({...value, ytvideodata: data, issearching: false})
+      // console.log(data.AllFormates);
+    })
     .catch(err => {
       console.log(err);
       setvalue({...value, issearching: false})
@@ -39,7 +43,7 @@ function App() {
   const download = async (e) =>{
     e.preventDefault()
     setvalue({...value, isdownloading: true})
-    fetch(`https://dountubeapi.herokuapp.com/download/${ExtractYTID(value.ytid)}/${value.ytvideodata.formate}`)
+    fetch(`http://localhost:7000/download/${ExtractYTID(value.ytid)}/highestaudio/mp3`)
     // .then(res=> res.json())
     .then(data => {
       window.location = data.url
@@ -66,7 +70,17 @@ function App() {
         && 
         <>
           <InfoSection title={value.ytvideodata.title} thumbnail={value.ytvideodata.thumbnail} Videolink={value.ytvideodata.Videolink}/>
-          <button className="download-btn" onClick={download}>{value.isdownloading ? 'Preparing..' : 'Download'}{value.isdownloading&&<Loader size="mini"/>}</button>
+          <div className="video-audio-wraper">
+            <span className="video-section">VIDEO</span>
+            <span onClick={download} className="audio-section">{value.isdownloading ? 'Finding..' : 'AUDIO'}{value.isdownloading && <Loader size="mini"/>}</span>
+          </div>
+          <div className="download-btn-wraper">
+            {
+              value.ytvideodata.AllFormates.map((datas, index)=>{
+                return <DownloadSection key={index} datas={datas}  index={index} ytid={ExtractYTID(value.ytid)}/>
+              })
+            }
+          </div>
         </> 
         }
         {
