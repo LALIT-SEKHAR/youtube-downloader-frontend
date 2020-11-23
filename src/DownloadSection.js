@@ -15,7 +15,7 @@ const DownloadSection = ({datas, index, ytid}) => {
     const download = async (e) =>{
         e.preventDefault()
         setvalue({...value, isdownloading: true})
-        fetch(`http://localhost:7000/download/${ytid}/${e.target.value.split('-')[0]}/${e.target.value.split('-')[1]}`)
+        fetch(`https://dountubeapi.herokuapp.com/download/${ytid}/${e.target.value.split('-')[0]}/${e.target.value.split('-')[1]}`)
         // .then(res=> res.json())
         .then(data => {
           window.location = data.url
