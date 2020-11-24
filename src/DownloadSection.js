@@ -15,7 +15,7 @@ const DownloadSection = ({datas, index, ytid}) => {
     const download = async (e) =>{
         e.preventDefault()
         setvalue({...value, isdownloading: true})
-        fetch(`http://localhost:7000/download/${ytid}/${e.target.value.split('-')[0]}/${e.target.value.split('-')[1]}`)
+        fetch(`https://dountubeapi.herokuapp.com/download/${ytid}/${e.target.value.split('-')[0]}/${e.target.value.split('-')[1]}`)
         // .then(res=> res.json())
         .then(data => {
           window.location = data.url
@@ -33,7 +33,7 @@ const DownloadSection = ({datas, index, ytid}) => {
                 <span>{value.video.audio === 'none' ? <img height="25px" src={MUTE} alt="MUTE"/> : <img height="25px" src={UNMUTE} alt="UNMUTE"/>}</span>
                 <span>{value.video.resolution}</span>
                 <span>{value.video.exten}</span>
-                <span>{value.video.Size}</span>
+                <span>{value.video.Size === '0mb' ? '-' : value.video.Size}</span>
             </span>
             <button value={`${value.video.format_id}-${value.video.exten}`} onClick={download} className="download-btn">
                 {value.isdownloading ? 'Preparing..' : 'Download'}
