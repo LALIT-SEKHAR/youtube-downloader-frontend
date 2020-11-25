@@ -47,6 +47,52 @@ header{
   font-size: 1.25em;
   color: rgb(222, 222, 222);
 }
+.InfoSection{
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+.title{
+  font-size: 1.8em;
+  color: rgb(50, 50, 50)
+}
+.video-play{
+  max-width: 500px;
+  width: 100%;
+  height: auto;
+  border-radius: 1em;
+}
+.video-play-btn,
+.video-pause-btn{
+  border-radius: 50%;
+  background-color: red;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 1.5em;
+}
+.video-play-btn::before{
+  content: '';
+  position: absolute;
+  border-top: 0.8em solid transparent;
+  border-left: 1.25em solid white;
+  border-right: 0.8em solid transparent;
+  border-bottom: 0.8em solid transparent;
+  transform: translateX(25%);
+}
+.video-pause-btn::before{
+  content: '';
+  position: absolute;
+  height: 1.25em;
+  width: 0.5em;
+  border: 0.25em solid white;
+  border-top-color: transparent; 
+  border-bottom-color: transparent; 
+}
 .video-audio-wraper{
   width: 80%;
   display: flex;
@@ -69,7 +115,7 @@ header{
 .video-section{
   background-color: red
 }
-.audio-section{}
+/* .audio-section{} */
 .download-btn-wraper{
   width: 80%;
   display: flex;
@@ -113,16 +159,8 @@ header{
   align-items: center;
   gap: 1em;
   /* margin: 0.5em; */
+  cursor: pointer;
 }
-.InfoSection{
-  width: 80%;
-}
-.title{
-  font-size: 1.8em;
-  color: rgb(50, 50, 50)
-}
-/* .video-play{
-} */
 
 .circle-loader-mega{
   height: 5em;
@@ -165,10 +203,13 @@ header{
     padding: 0.25em 0.5em;
   }
   .ytlinkinputbtn{
-    font-size: 1em;
+    font-size: 0.8em;
   }
   .title{
     font-size: 1em;
+  }
+  .InfoSection{
+    width: 90%;
   }
   .download-btn-wraper{
     width: 95%;

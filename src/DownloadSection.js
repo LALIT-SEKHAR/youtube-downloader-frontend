@@ -4,7 +4,7 @@ import Loader from './Loader';
 import MUTE from './images/mute.png';
 import UNMUTE from './images/unmute.png';
 
-const DownloadSection = ({datas, index, ytid}) => {
+const DownloadSection = ({datas, index, ytid, title}) => {
 
     const [value, setvalue] = useState({
         ytid: ytid,
@@ -15,7 +15,7 @@ const DownloadSection = ({datas, index, ytid}) => {
     const download = async (e) =>{
         e.preventDefault()
         setvalue({...value, isdownloading: true})
-        fetch(`https://dountubeapi.herokuapp.com/download/${ytid}/${e.target.value.split('-')[0]}/${e.target.value.split('-')[1]}`)
+        fetch(`https://dountubeapi.herokuapp.com/download/${title}/${ytid}/${e.target.value.split('-')[0]}/${e.target.value.split('-')[1]}`)
         // .then(res=> res.json())
         .then(data => {
           window.location = data.url
@@ -29,7 +29,7 @@ const DownloadSection = ({datas, index, ytid}) => {
 
     return (
         <div className="DownloadSection">
-            <span key={`${index}-${value.video.format_id}`} className="download-data" onClick={download}>
+            <span key={`${index}-${value.video.format_id}`} className="download-data">
                 <span>{value.video.audio === 'none' ? <img height="25px" src={MUTE} alt="MUTE"/> : <img height="25px" src={UNMUTE} alt="UNMUTE"/>}</span>
                 <span>{value.video.resolution}</span>
                 <span>{value.video.exten}</span>

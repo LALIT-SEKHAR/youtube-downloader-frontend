@@ -43,7 +43,7 @@ function App() {
   const download = async (e) =>{
     e.preventDefault()
     setvalue({...value, isdownloading: true})
-    fetch(`https://dountubeapi.herokuapp.com/download/${ExtractYTID(value.ytid)}/highestaudio/mp3`)
+    fetch(`https://dountubeapi.herokuapp.com/download/${value.ytvideodata.title}/${ExtractYTID(value.ytid)}/highestaudio/mp3`)
     // .then(res=> res.json())
     .then(data => {
       window.location = data.url
@@ -55,6 +55,15 @@ function App() {
     })
   }
 
+  const ReadClipBordData = (e) => {
+    if (navigator.clipboard.readText) { 
+      navigator.clipboard.readText()
+      .then((text)=>{
+          setvalue({...value, ytid: text})
+      });
+    }
+  }
+
   return (
     <>
       <header>
@@ -62,7 +71,7 @@ function App() {
       </header>
       <div className="ytdl">
         <form className="ytlinkinputwraper">
-          <input className="ytlinkinput" onChange={inputchenge} value={value.ytid} type="text" name="ytid" placeholder="Enter Youtube Video Link"/>
+          <input onClick={ReadClipBordData} className="ytlinkinput" onChange={inputchenge} value={value.ytid} type="text" name="ytid" placeholder="Enter Youtube Video Link"/>
           <button className="ytlinkinputbtn" onClick={getytvideo}>{value.issearching ? 'Searching..' : 'Search'}</button>
         </form>
         {
@@ -77,7 +86,7 @@ function App() {
           <div className="download-btn-wraper">
             {
               value.ytvideodata.AllFormates.map((datas, index)=>{
-                return <DownloadSection key={index} datas={datas}  index={index} ytid={ExtractYTID(value.ytid)}/>
+                return <DownloadSection key={index} datas={datas}  index={index} ytid={ExtractYTID(value.ytid)} title={value.ytvideodata.title}/>
               })
             }
           </div>
