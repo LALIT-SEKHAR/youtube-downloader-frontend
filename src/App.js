@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import { API, Prepairtitle } from './backend';
 import DownloadSection from './DownloadSection';
 import InfoSection from './InfoSection';
 import Loader from './Loader';
@@ -28,7 +29,7 @@ function App() {
   const getytvideo = async (e) =>{
     e.preventDefault();
     setvalue({...value, ytlink: '', issearching: true, ytvideodata: ''})
-    fetch(`https://dountubeapi.herokuapp.com/getytvideo/${ExtractYTID(value.ytid)}`)
+    fetch(`${API}/getytvideo/${ExtractYTID(value.ytid)}`)
     .then(res=> res.json())
     .then(data => {
       setvalue({...value, ytvideodata: data, issearching: false})
@@ -43,7 +44,7 @@ function App() {
   const download = async (e) =>{
     e.preventDefault()
     setvalue({...value, isdownloading: true})
-    fetch(`https://dountubeapi.herokuapp.com/download/${value.ytvideodata.title}/${ExtractYTID(value.ytid)}/highestaudio/mp3`)
+    fetch(`${API}/download/${Prepairtitle(value.ytvideodata.title)}/${ExtractYTID(value.ytid)}/highestaudio/mp3`)
     // .then(res=> res.json())
     .then(data => {
       window.location = data.url

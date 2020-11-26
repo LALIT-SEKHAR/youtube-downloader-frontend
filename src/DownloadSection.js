@@ -3,6 +3,7 @@ import './App.css';
 import Loader from './Loader';
 import MUTE from './images/mute.png';
 import UNMUTE from './images/unmute.png';
+import { API, Prepairtitle } from './backend';
 
 const DownloadSection = ({datas, index, ytid, title}) => {
 
@@ -15,7 +16,7 @@ const DownloadSection = ({datas, index, ytid, title}) => {
     const download = async (e) =>{
         e.preventDefault()
         setvalue({...value, isdownloading: true})
-        fetch(`https://dountubeapi.herokuapp.com/download/${title}/${ytid}/${e.target.value.split('-')[0]}/${e.target.value.split('-')[1]}`)
+        fetch(`${API}/download/${Prepairtitle(title)}/${ytid}/${e.target.value.split('-')[0]}/${e.target.value.split('-')[1]}`)
         // .then(res=> res.json())
         .then(data => {
           window.location = data.url
