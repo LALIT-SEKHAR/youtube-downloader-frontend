@@ -77,8 +77,14 @@ function App() {
         </form>
         {
         value.ytvideodata 
-        && 
+        &&
         <>
+          {
+          value.ytvideodata.error 
+          ? 
+          <p style={{color: 'red'}}>{value.ytvideodata.error}</p>
+          : 
+          <>
           <InfoSection title={value.ytvideodata.title} thumbnail={value.ytvideodata.thumbnail} Videolink={value.ytvideodata.Videolink}/>
           <div className="video-audio-wraper">
             <span className="video-section">VIDEO</span>
@@ -91,6 +97,8 @@ function App() {
               })
             }
           </div>
+          </>
+          }
         </> 
         }
         {
