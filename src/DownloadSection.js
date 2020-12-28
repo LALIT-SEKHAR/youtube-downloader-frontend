@@ -16,7 +16,9 @@ const DownloadSection = ({datas, index, ytid, title}) => {
     const download = async (e) =>{
         e.preventDefault()
         setvalue({...value, isdownloading: true})
-        fetch(`${API}/download/${Prepairtitle(title)}/${ytid}/${e.target.value.split('-')[0]}/${e.target.value.split('-')[1]}`)
+        // fetch(`${API}/download/${Prepairtitle(title)}/${ytid}/${e.target.value.split('-')[0]}/${e.target.value.split('-')[1]}`)
+        // fetch(`${API}/download?name=${Prepairtitle(value.ytvideodata.title)}&id=${ExtractYTID(value.ytid)}&quality=highestaudio&formate=mp3`)
+        fetch(`${API}/download?name=${Prepairtitle(title)}&id=${ytid}&quality=${e.target.value.split('-')[0]}&formate=${e.target.value.split('-')[1]}`)
         // .then(res=> res.json())
         .then(data => {
           window.location = data.url

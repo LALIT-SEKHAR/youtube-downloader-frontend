@@ -44,7 +44,8 @@ function App() {
   const download = async (e) =>{
     e.preventDefault()
     setvalue({...value, isdownloading: true})
-    fetch(`${API}/download/${Prepairtitle(value.ytvideodata.title)}/${ExtractYTID(value.ytid)}/highestaudio/mp3`)
+    // fetch(`${API}/download/${Prepairtitle(value.ytvideodata.title)}/${ExtractYTID(value.ytid)}/highestaudio/mp3`)
+    fetch(`${API}/download?name=${Prepairtitle(value.ytvideodata.title)}&id=${ExtractYTID(value.ytid)}&quality=highestaudio&formate=mp3`)
     // .then(res=> res.json())
     .then(data => {
       window.location = data.url
@@ -61,6 +62,7 @@ function App() {
       navigator.clipboard.readText()
       .then((text)=>{
           setvalue({...value, ytid: text})
+          document.querySelector('.ytlinkinputbtn').click();
       });
     }
   }
