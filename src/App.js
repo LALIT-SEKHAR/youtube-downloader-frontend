@@ -20,7 +20,7 @@ function App() {
 
   const ExtractYTID = (link) => {
     if (link.search("v=") !== -1) {
-      return link.split('v=')[1];
+      return link.split('v=')[1].split('&')[0];
     } else if (link.search("youtu.be" !== -1)) {
       return link.split('/')[link.split('/').length - 1]
     }
@@ -40,7 +40,7 @@ function App() {
       setvalue({...value, issearching: false})
     })
   }
-
+  
   const download = async (e) =>{
     e.preventDefault()
     setvalue({...value, isdownloading: true})
@@ -58,12 +58,14 @@ function App() {
   }
 
   const ReadClipBordData = (e) => {
-    if (navigator.clipboard.readText) { 
-      navigator.clipboard.readText()
-      .then((text)=>{
-          setvalue({...value, ytid: text})
-          document.querySelector('.ytlinkinputbtn').click();
-      });
+    if (navigator.clipboard) { 
+      if (navigator.clipboard.readText) { 
+        navigator.clipboard.readText()
+        .then((text)=>{
+            setvalue({...value, ytid: text})
+            document.querySelector('.ytlinkinputbtn').click();
+        });
+      }
     }
   }
 
