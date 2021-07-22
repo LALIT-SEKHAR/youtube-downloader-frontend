@@ -4,5 +4,5 @@ export const API = "https://dountubeapi.herokuapp.com";
 
 // for prepare the title url friendly
 export const Prepairtitle = (title) =>{
-    return title.replace(/\?/g, "").replace(/\|/g, "").replace(/"/g, "'").replace(/\*/g, "").replace(/\//g, "").replace(/\\/g, "").replace(/:/g, "-").replace(/</g, "").replace(/>/g, "").replace(/#/g, "");
+    return title.split(' ')[0].replace(/\?/g, "").replace(/\|/g, "").replace(/"/g, "'").replace(/\*/g, "").replace(/\//g, "").replace(/\\/g, "").replace(/:/g, "-").replace(/</g, "").replace(/>/g, "").replace(/#/g, "").replace(/" "/g, "_");
 }

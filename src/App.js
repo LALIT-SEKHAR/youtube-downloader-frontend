@@ -43,18 +43,20 @@ function App() {
   
   const download = async (e) =>{
     e.preventDefault()
-    setvalue({...value, isdownloading: true})
-    // fetch(`${API}/download/${Prepairtitle(value.ytvideodata.title)}/${ExtractYTID(value.ytid)}/highestaudio/mp3`)
-    fetch(`${API}/download?name=${Prepairtitle(value.ytvideodata.title)}&id=${ExtractYTID(value.ytid)}&quality=highestaudio&formate=mp3`)
-    // .then(res=> res.json())
-    .then(data => {
-      window.location = data.url
-      setvalue({...value, isdownloading: false})
-    })
-    .catch(err => {
-      console.log(err)
-      setvalue({...value, isdownloading: false})
-    })
+    window.location = `${API}/download?name=${Prepairtitle(value.ytvideodata.title)}&id=${ExtractYTID(value.ytid)}&quality=140&formate=mp3`
+    setvalue({...value, isdownloading: false})
+    // // fetch(`${API}/download/${Prepairtitle(value.ytvideodata.title)}/${ExtractYTID(value.ytid)}/highestaudio/mp3`)
+    // fetch(`${API}/download?name=${Prepairtitle(value.ytvideodata.title)}&id=${ExtractYTID(value.ytid)}&quality=140&formate=mp3`)
+    // // .then(res=> res.json())
+    // .then(data => {
+    //   console.log(data.url);
+    //   window.location = data.url
+    //   setvalue({...value, isdownloading: false})
+    // })
+    // .catch(err => {
+    //   console.log(err)
+    //   setvalue({...value, isdownloading: false})
+    // })
   }
 
   const ReadClipBordData = (e) => {
